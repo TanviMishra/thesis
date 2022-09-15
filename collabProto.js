@@ -52,9 +52,9 @@ function heightScale() {
         p.turn = smallest;
       }
     }
-    console.log(largest, smallest);
+    // console.log(largest, smallest);
   } else {
-    console.log("same height");
+    // console.log("same height");
     heightCheck();
   }
 }
@@ -63,13 +63,10 @@ function heightCheck() {
   for (i = 0; i < players.length; i++) {
     p = players[i];
     if (p.turn == largest) {
-      // console.log("lagre", p.turn);
       heightUpdate(p, -2 * pixel);
     } else if (p.turn == smallest) {
-      // console.log("lagre", p.turn);
       heightUpdate(p, -1 * pixel);
     } else {
-      // console.log("lagre", p.turn);
       heightUpdate(p, -1 * pixel);
     }
   }

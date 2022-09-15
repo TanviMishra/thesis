@@ -1,18 +1,18 @@
 let shared;
 let me;
-let guests;
+let players;
 let pixel = 20;
 let winHeight = pixel * 2;
 let start = 5 * pixel;
 let startGame = false;
-let players = 2;
+let playerCount = 3;
 let largest = 0;
 let smallest = 400;
 function preload() {
-  partyConnect("wss://deepstream-server-1.herokuapp.com", "collab_tm", "tm1");
-  shared = partyLoadShared("globals");
+  partyConnect("wss://deepstream-server-1.herokuapp.com", "clb_tm", "room4");
+  shared = partyLoadShared("collab");
   me = partyLoadMyShared();
-  guests = partyLoadGuestShareds();
+  players = partyLoadGuestShareds();
 }
 function setup() {
   createCanvas(400, 400);
@@ -36,59 +36,47 @@ function heightReset() {
   smallest = 400;
 }
 function heightScale() {
-  for (const p of guests) {
-    if (p.height > largest) {
-      largest = p.height;
-      p.turn = "largest";
-      // console.log("current largest is")
+  let tempHeightArr = [];
+  for (i = 0; i < players.length; i++) {
+    p = players[i];
+    tempHeightArr.push(p.height);
+  }
+  if (Math.max(...tempHeightArr) != Math.min(...tempHeightArr)) {
+    largest = Math.max(...tempHeightArr);
+    smallest = Math.min(...tempHeightArr);
+    for (i = 0; i < players.length; i++) {
+      p = players[i];
+      if (p.height == largest) {
+        p.turn = largest;
+      } else if (p.height == smallest) {
+        p.turn = smallest;
+      }
     }
-    if (p.height < smallest) {
-      smallest = p.height;
-      p.turn = "smallest";
-    }
+    console.log(largest, smallest);
+  } else {
+    console.log("same height");
+    heightCheck();
   }
 }
 function heightCheck() {
-  check = true;
-  for (const p of guests) {
-    if (p.height != me.height) {
-      check = false;
+  // console.log(largest, smallest);
+  for (i = 0; i < players.length; i++) {
+    p = players[i];
+    if (p.turn == largest) {
+      // console.log("lagre", p.turn);
+      heightUpdate(p, -2 * pixel);
+    } else if (p.turn == smallest) {
+      // console.log("lagre", p.turn);
+      heightUpdate(p, -1 * pixel);
+    } else {
+      // console.log("lagre", p.turn);
+      heightUpdate(p, -1 * pixel);
     }
   }
-  if (check == true) {
-    for (const p of guests) {
-      console.log(p.height, p.turn);
-      if (p.turn == "largest") {
-        p.height -= 2 * pixel;
-      }
-      if (p.turn == "smallest") {
-        p.height += pixel;
-      }
-      if (p.turn == "middle") {
-        p.height -= pixel;
-      }
-    }
-  }
-  heightReset();
 }
-function reducePixels() {
-  let heightCheck = true;
-  for (const p of guests) {
-    if (p.height != "largest") {
-      heightCheck = false;
-    }
-  }
-  if (heightCheck == false) {
-    for (const p of guests) {
-      if (p.turn == "largest") {
-        p.height -= 2 * pixel;
-      } else if (p.turn == "smallest") {
-        p.height += pixel;
-      } else if (p.turn == "normal") {
-        p.height -= pixel;
-      }
-    }
-  }
+function heightUpdate(object, quantity) {
+  object.y -= quantity;
+  object.height += quantity;
 }
 function keyPressed() {
   if (keyCode === LEFT_ARROW) {
@@ -102,7 +90,7 @@ function checkWin() {
   me.height == pixel ? (me.win = true) : (me.win = false);
 }
 function pixelAppearance() {
-  for (const p of guests) {
+  for (const p of players) {
     if (p.win) col = "#8BC34A"; //win colour
     else if (p.lose) col = "#FF5722"; //lose colour
     else col = "#FFEAA4"; //other colour
@@ -115,8 +103,10 @@ function pixelAppearance() {
   fill(pixCol);
   rect(me.x, me.y, pixel, me.height);
   fill("#FF7B00"); //falling pix colour
-  for (const p of shared.fallingArr) {
-    rect(p.x, p.y, pixel, pixel);
+  for (const pix of shared.fallingArr) {
+    if ((pix.x, pix.y)) {
+      rect(pix.x, pix.y, pixel, pixel);
+    }
   }
 }
 function updatePixel() {
@@ -132,28 +122,31 @@ function createFallingPix() {
   }
 }
 function checkCollision(p) {
-  // if (p.x == me.x && p.y + pixel == me.y && !me.win) { //OLD VERSION
-  // if (p.x == me.x) { //cleaner console log
-  //   console.log(p.x, p.y + pixel, me.x, me.y);
-  // }
-  if (dist(p.x, p.y + pixel, me.x, me.y) <= 0) {
-    p.y = height; //pushes pixel out
-    updatePixel(); //update player block
-    // heightCheck();
-    checkWin();
+  if ((p.x, p.y)) {
+    //so that dist always recieves a parameter
+    if (dist(p.x, p.y + pixel, me.x, me.y) <= 0) {
+      // p.y = height; //pushes pixel out
+      // updatePixel(); //update player block
+      heightUpdate(me, pixel);
+      checkWin();
+      return true;
+    } else return false;
   }
 }
 function updateFall() {
   if (shared.fallingArr && startGame) {
-    for (const pix of shared.fallingArr) {
-      // checkCollision(pix);
-      pix.y < height - start - pixel ? (pix.y += pixel / 2) : (pix.y = height);
+    for (i = 0; i < shared.fallingArr.length; i++) {
+      pix = shared.fallingArr[i];
+      pix.y < height - start - pixel
+        ? (pix.y += pixel / 2)
+        : shared.fallingArr.splice(i, 1); //remove the pixel
     }
   }
+  // console.log(shared.fallingArr.length);
 }
 function textBox() {
   let s =
-    "collect falling pixels, player who reaches 0 pixels first wins. Players lose one or two pixels when they reach the same height"; //*It is sometimes glitchy*'
+    "collect falling pixels, player who reaches 0 pixels first wins. players lose one or two pixels when they reach the same height"; //*It is sometimes glitchy*'
   push();
   fill("#005C04");
   textSize(16);
@@ -170,18 +163,18 @@ function draw() {
     rect(0, height - pixel - start, width, height); //ground
     line(0, winHeight, width, winHeight); //win line
     textBox(); //instructions fn call
-    if (guests.length == players) {
-      for (const pix of shared.fallingArr) {
-        // heightScale();
-        checkCollision(pix);
-      }
-      pixelAppearance();
+    heightScale();
+    for (i = 0; i < shared.fallingArr.length; i++) {
+      pix = shared.fallingArr[i];
+      let collided = checkCollision(pix);
+      if (collided) shared.fallingArr.splice(i, 1); //remove pixel
     }
+    pixelAppearance();
   } else background("#4AC3BE"); //bg
 }
 function startGameCheck() {
-  guests.length == players ? (startGame = true) : (startGame = false);
-  // console.log(guests.length);
+  players.length == playerCount ? (startGame = true) : (startGame = false);
+  // console.log(players.length);
 }
 setInterval(() => startGameCheck(), 500);
 setInterval(() => createFallingPix(), 5000);

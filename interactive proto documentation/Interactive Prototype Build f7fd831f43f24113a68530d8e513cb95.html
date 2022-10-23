@@ -1,0 +1,672 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Interactive Prototype Build</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f7fd831f-43f2-4113-a685-30d8e513cb95" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="https://www.notion.so/icons/hammer_green.svg"/></div><h1 class="page-title">Interactive Prototype Build</h1></header><div class="page-body"><h1 id="00485fad-47ae-45cc-b4d2-9953974c6563" class="">Concept</h1><p id="365b393a-9beb-4883-87e2-7585cabfa3c3" class="">A game based on Forest Transition Theory [a shift from deforestation to expanding forest areas (afforestation) that is seen in developed countries]</p><h1 id="ccde6225-a583-49a0-8c39-18127f6f777d" class="">Game Brainstorm</h1><div id="6d8ef8a5-6c5d-4846-a7d2-06f584734c98" class="column-list"><div id="d76bf604-c65f-4ca4-b4bb-5992c5d6fe2e" style="width:41.666666666666664%" class="column"><figure id="617e13a6-74e2-4d2d-b1a5-6b679a30dc21" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/Screenshot_2022-10-23_at_18.30.40.png"><img style="width:240px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/Screenshot_2022-10-23_at_18.30.40.png"/></a></figure></div><div id="254d031f-f0a7-4595-9d2e-76744b42adc0" style="width:29.166666666666664%" class="column"><figure id="a940d0a2-8518-4c11-b93f-3607bb9fc9a4" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/Screenshot_2022-10-23_at_18.31.23.png"><img style="width:856px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/Screenshot_2022-10-23_at_18.31.23.png"/></a></figure></div><div id="9aacda8a-bcea-466d-b63c-c9a32da1b3fb" style="width:29.166666666666686%" class="column"><figure id="5c51c29d-1cf9-4e74-8fa1-9f8b179fc2fa" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/Screenshot_2022-10-23_at_18.31.38.png"><img style="width:850px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/Screenshot_2022-10-23_at_18.31.38.png"/></a></figure></div></div><h1 id="d992cf2e-e789-441d-bad2-7ab7b4143b05" class="">Version 1</h1><h3 id="2e091dfd-3edc-411a-b637-6c16567fb47f" class="">Paper Prototype</h3><figure id="46e17d55-a5df-41a9-805f-0ace1d8a18d0" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1f.jpeg"><img style="width:1280px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1f.jpeg"/></a></figure><h3 id="3a335744-6a9c-4896-b8b6-f5d681d22c97" class=""><mark class="highlight-teal">Playtest</mark>:</h3><ul id="33146153-9c94-4ed8-aa5a-fd293ca49156" class="bulleted-list"><li style="list-style-type:disc">Conducted with my <mark class="highlight-teal">roommates</mark></li></ul><ul id="36f4e4b3-16e0-4f13-901e-5106ea69308c" class="bulleted-list"><li style="list-style-type:disc">expected outcomes<ul id="931b7ec6-0928-4968-aa9b-60a9b41939ca" class="bulleted-list"><li style="list-style-type:circle">some discrepancies in the amounts of carbon and money players trade with</li></ul><ul id="67288d63-9c32-43bc-a284-633c71d821fd" class="bulleted-list"><li style="list-style-type:circle">confusion while interpreting  the rules</li></ul><ul id="27f56c16-6c73-4627-b0ef-7065407ce609" class="bulleted-list"><li style="list-style-type:circle">some elements of the build would immediately be more/ less engaging</li></ul><ul id="86e9fea4-c5e2-4587-b1dd-67b9582201d1" class="bulleted-list"><li style="list-style-type:circle">identify a more concrete win condition</li></ul><ul id="3d79e60e-4400-47ed-b46f-2b7372cd5b6c" class="bulleted-list"><li style="list-style-type:circle">see if any elements are unnecessary</li></ul></li></ul><h3 id="d00cfead-9b2c-481f-960e-4e1dbf33dc08" class="">Observations:</h3><ul id="f33b4969-d583-4b5b-a39a-28e63998ed11" class="bulleted-list"><li style="list-style-type:disc">The most obvious change was that <mark class="highlight-teal">there was WAY too much math to have to keep track of</mark>. I became a banker to help the pace.<ul id="180d9e13-f646-48ee-8ef6-ba7b529d03a8" class="bulleted-list"><li style="list-style-type:circle">While this wouldn’t be a challenge in the online game, here it becomes tedious</li></ul><ul id="c18041d1-1aa8-49cc-be46-e0e5baa673c9" class="bulleted-list"><li style="list-style-type:circle">as a result, I am going to simplify a lot of the money related functions<ul id="6cc2f0f1-3a6b-489c-aea6-39216e92f6ea" class="bulleted-list"><li style="list-style-type:square">remove initial investment / government payments </li></ul><ul id="9b5c39b9-abd7-4073-9425-bc7adeb715f5" class="bulleted-list"><li style="list-style-type:square">players get rent for building → buildings + trees (?)</li></ul><ul id="c087032d-7904-48ff-a34f-dcfab682b66a" class="bulleted-list"><li style="list-style-type:square">pay to restore land → sea drops + go back to soil</li></ul></li></ul><ul id="71cc5120-36c1-44ef-bd93-b47222326e23" class="bulleted-list"><li style="list-style-type:circle">rethink incentives for building vs farms</li></ul></li></ul><ul id="857619c4-3741-4ef6-943b-35784ddd5d96" class="bulleted-list"><li style="list-style-type:disc">Players decide whats top and bottom of their board at the beginning [test]</li></ul><ul id="a33b353c-4504-41e8-bd8b-37a6c82bf13c" class="bulleted-list"><li style="list-style-type:disc">Include young trees in the rules more explicitly + make the tasks <strong>much </strong>shorter</li></ul><ul id="ab54cced-e8c2-45e3-9b58-ada8b65f67cb" class="bulleted-list"><li style="list-style-type:disc">Clarify →<ul id="8562c112-0d6e-44e4-8982-f67d015f8440" class="bulleted-list"><li style="list-style-type:circle">you receive the rent → rename it to earning / investment / <del>interest?</del></li></ul><ul id="e698f6dd-ff30-4605-9ec2-ebf4822bd778" class="bulleted-list"><li style="list-style-type:circle">increase govt worker initial income</li></ul></li></ul><ul id="7c6a50bf-32bc-43d7-b5d9-30e4cd59baa4" class="bulleted-list"><li style="list-style-type:disc">Update goal of game → build 30 farms + 20 buildings (?)</li></ul><ul id="835e14d5-4ab6-432b-a3e0-59a1ec610994" class="bulleted-list"><li style="list-style-type:disc">Explain forest transition theory in the end</li></ul><h1 id="dfa5c0f2-34fe-4e30-8402-ec6c830e312a" class="">Version 2</h1><h3 id="aaf6ec8a-2720-4fe7-8c48-03ce893c67b8" class="">Prototype</h3><figure id="7c36c52e-f0cb-488d-ba06-e867b99bb219" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_222348843.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_222348843.jpg"/></a></figure><h3 id="d2a18546-2158-4679-b481-e0f91b16b5cf" class="">Playtest:</h3><p id="a9cfc912-a737-4dd3-a734-346dfb592f59" class="">Conducted in three rounds →<div class="indented"><ol type="1" id="afad633c-7296-46d7-b856-debe05446aa3" class="numbered-list" start="1"><li>Anna and Jasmine (Team 1)</li></ol><ol type="1" id="0123f066-6956-4621-9c68-ef0dada211e9" class="numbered-list" start="2"><li>Apurv and Leo (Team 2)</li></ol><ol type="1" id="3df1f0ce-a393-47af-b894-8c04799b1056" class="numbered-list" start="3"><li>Krithi Nalla, my cousin and I (Team 3)</li></ol></div></p><p id="4097e003-ac87-4363-b61f-f5af7e3d85bc" class="">Biggest questions →<div class="indented"><ol type="1" id="cfe88443-0eb3-4040-9cae-968553c78c5a" class="numbered-list" start="1"><li>Was the game too prescriptive or could people play it in many different ways</li></ol><ol type="1" id="d52fa011-89ad-4763-821f-b16850a6177d" class="numbered-list" start="2"><li><mark class="highlight-teal">Is the difficulty level significan</mark>t → the game should neither be impossible nor easy as they both send the wrong message. Rather, it should be achievable and challenging</li></ol><ol type="1" id="469dc4d7-acf4-4359-946a-f0615e1917a1" class="numbered-list" start="3"><li>Checking player interactions + communication + work together </li></ol><ol type="1" id="2ab18139-dfa1-432b-9560-2b39d8f70a73" class="numbered-list" start="4"><li><mark class="highlight-teal">Role-based game play</mark></li></ol><ol type="1" id="e81acacb-b627-4ff6-8355-df3d442f16c4" class="numbered-list" start="5"><li>Working with <mark class="highlight-teal">randomised board</mark></li></ol><ol type="1" id="81b0b3f1-b7c9-4687-a453-cee9ec80b2d0" class="numbered-list" start="6"><li>How was the onboarding process</li></ol></div></p><h3 id="45363c54-49ab-435f-83ac-030e40c8180c" class="">Observations:</h3><ol type="1" id="d5de3c2d-333d-4883-862d-e8f9e4b8e5dd" class="numbered-list" start="1"><li>Everyone played the game very differently. Team 1 focussed on the grass and finding the best places to build. The dispersed their houses across the board.<p id="9df6b2ce-969d-48bb-9c8f-a7d49320e1a1" class="">Team 2 was all about efficiency of packing buildings together.</p><p id="82e2a26c-a9c8-4eff-af00-2638db29f4f7" class="">Team 3 was similar to Team 2 but we discovered a way to plant trees just before water levels rise so as to lose carbon without losing space.</p></li></ol><ol type="1" id="bf2f071c-7767-4648-ae4f-00ac6dab4de5" class="numbered-list" start="2"><li>The difficulty level was definitely on the right level → <p id="7dca4591-bd2b-4987-8081-eb3d37a9ca67" class="">Out of the three games, one went smoothly and the team manages to win. However, the other two games hd players losing with 2-3 moves left. </p><p id="37e8b5d1-6298-4213-bbc5-0a2a1e266bc2" class="">This made the experience a bit frustrating but not demotivating.</p><p id="bde1e270-5ad3-48f1-9365-7ec61933aa2a" class="">I know from personal experience I immediately wanted to dive right back into the game to figure it out again</p></li></ol><ol type="1" id="df040e59-ee46-42ec-89a7-fbdf4cb3678f" class="numbered-list" start="3"><li>Players were overall able to communicate and make changes really easily. </li></ol><ol type="1" id="2a361925-d0dc-4723-bdc3-63a13d2adaf6" class="numbered-list" start="4"><li>Role based aspect of the game was inherently unnecessary. The game was initially designed so one person removed pieces and the other placed new ones. However, in a board game setting this isn’t enforced. So ultimately it became a game where players would just do everything together. </li></ol><ol type="1" id="71448c3a-9a72-42c8-b0f5-f7121513f34f" class="numbered-list" start="5"><li>Randomised board → I loved working with the randomised boards but there was two easily spotted mistakes I made<ol type="a" id="2c00be13-4d7a-43f4-bac2-c91ad0b475bf" class="numbered-list" start="1"><li>I didn’t take a picture of the board at the beginning of any of these games to compare how the initial game state varied across all three</li></ol><ol type="a" id="11d138f2-8fa9-40f4-a00b-9f4e32e9946e" class="numbered-list" start="2"><li>I didn’t decide how many trees and soil would be on the board. I suspect this <mark class="highlight-teal">difference in the ratio of grass: trees resulted in sone of the game hoards being much harder than others.</mark></li></ol></li></ol><ol type="1" id="4d39fe23-6977-400b-b2aa-6f8fcdc34903" class="numbered-list" start="6"><li>Rules still required some tweaking. But as people played the game, they definitely understood how it worked. </li></ol><h3 id="3936c048-880d-45c6-8c00-2cf28cfb00c6" class="">Player comments:</h3><p id="0baa5cd6-60b2-42cf-a964-06fe26c6386d" class="">Game pieces are well designed</p><p id="419892de-572e-4c9e-8422-4fe1ac1ad410" class="">Made me aware of the impact</p><p id="4fcdb2f6-52fc-454c-996f-fbfa09abd571" class="">Board game inherently allows for better collaboration</p><p id="373c1d7c-35e5-49c4-a843-74c947e5ed3e" class="">Roles were a bit redundant</p><p id="d06baa21-7353-42dd-a1b5-7e137c410d75" class=""><mark class="highlight-teal">Cost of carbon becomes clear</mark></p><p id="654d0f26-ebe5-4fe0-9713-3dc08d4bd3d4" class="">Getting things = bad instead of good in this case. Different to what we expect but effective</p><p id="c922ff52-2c1e-4e78-b8cf-915a6aa22e7e" class="">Complex problems made understandable</p><p id="7aa3193d-691e-4569-9ba1-474ae71274df" class="">Huge gap between understanding scientific research and the general knowledge</p><p id="4c779a37-fc1c-4c85-986b-1e51b5382f1b" class="">Helps us in understanding our own thinking process</p><p id="b8fb4d45-5b98-4735-b983-25078356fbbf" class="">We can’t comprehend the scale of climate change; they use data viz to make it more comprehensive but a game is much more effective since it is tactile. </p><p id="1860cd5c-172b-4965-a2a3-295d6bb57df8" class="">Board games are always a community building activity </p><p id="538ba597-2115-4b26-b63b-bafea2e90cf1" class="">This game is a creative stimulus</p><p id="ad0a8e6a-1529-4e51-b720-295d008de6b6" class="">Suggestion: </p><ul id="b16369c4-3ee5-464e-8590-5e24d994166f" class="bulleted-list"><li style="list-style-type:disc">Sheep kill = <mark class="highlight-teal">permanent carbon</mark> collected</li></ul><ul id="2ae7ea7d-12de-408e-a330-99b9400cedd2" class="bulleted-list"><li style="list-style-type:disc">Maybe the sheep needs grass near it</li></ul><ul id="7cf834c9-0fdf-4d8e-9b43-ebfa4e273e4b" class="bulleted-list"><li style="list-style-type:disc">take it to the game club and ask them to playtest it<ul id="8757c49e-6ae8-414c-8d6d-04166f941e5c" class="bulleted-list"><li style="list-style-type:circle">you can show it to the educators at giant</li></ul></li></ul><ul id="a2ac2b53-c5e3-4317-96c2-f928bb8d94da" class="bulleted-list"><li style="list-style-type:disc">It could be a public installation analogous to the chess games at union</li></ul><ul id="caed90ca-8840-4c95-bd7b-3cc2f37eb390" class="bulleted-list"><li style="list-style-type:disc">show it to stakeholders irl</li></ul><ul id="5aa0d2cf-ef9b-4ff7-81a2-8c97b02f6069" class="bulleted-list"><li style="list-style-type:disc">Document everything (video of board, player conversations (w consent), photos w timestamps)<ul id="a6cd6bdf-44f7-4264-936a-fadcd1f08c5e" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">This game can become a method of research</mark></li></ul></li></ul><h1 id="0c26adae-230e-45a4-9976-03b9764a7305" class="">Appendix</h1><figure id="f964f866-54fa-4d99-91b2-68ad85b42e82" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1a.jpeg"><img style="width:1280px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1a.jpeg"/></a></figure><div id="54e6e250-ffc9-4efd-90ee-b88085a59b2c" class="column-list"><div id="05dbf379-71b7-4cdd-bbd8-02cb227663c9" style="width:50%" class="column"><figure id="105959a2-df85-410f-ac51-2dbdad1723a2" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1c.jpeg"><img style="width:1280px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1c.jpeg"/></a></figure></div><div id="dfab6fa7-ec5c-4bc5-a3aa-886874ded6dc" style="width:50%" class="column"><figure id="270bd51f-c723-4bf4-b47a-8dbe71e1ffe8" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1d.jpeg"><img style="width:1280px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1d.jpeg"/></a></figure></div></div><figure id="239b65de-8e61-49e0-87f4-36b949175c0d" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1e.jpeg"><img style="width:1280px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/proto1e.jpeg"/></a></figure><div id="f81acfa6-439f-4bc5-bd92-2d650d781174" class="column-list"><div id="f3ec7df5-76f1-4fbe-a157-b96950efbe0f" style="width:50%" class="column"><figure id="782f7f16-7b6f-4fda-a495-47fd7f29873d"><div class="bookmark source"><img style="width:1em;height:1em;margin-right:0.5em;vertical-align:text-bottom" src="https://drive-thirdparty.googleusercontent.com/64/type/application/vnd.openxmlformats-officedocument.presentationml.presentation"/><a href="https://docs.google.com/presentation/d/1-NiG7LG6sAFaygZrQHnFoAaeNM42jGZ9/edit?usp=drivesdk&amp;ouid=105755617636471752460&amp;rtpof=true&amp;sd=true">rules 1.pptx</a><br/><a class="bookmark-href" href="https://docs.google.com/presentation/d/1-NiG7LG6sAFaygZrQHnFoAaeNM42jGZ9/edit?usp=drivesdk&amp;ouid=105755617636471752460&amp;rtpof=true&amp;sd=true">https://docs.google.com/presentation/d/1-NiG7LG6sAFaygZrQHnFoAaeNM42jGZ9/edit?usp=drivesdk&amp;ouid=105755617636471752460&amp;rtpof=true&amp;sd=true</a></div></figure></div><div id="b15c5bbd-5914-485f-ad95-6f0d3a566948" style="width:50%" class="column"><figure id="c0f61c8b-92c6-4c88-ab45-d2e84a6c7b09"><div class="bookmark source"><img style="width:1em;height:1em;margin-right:0.5em;vertical-align:text-bottom" src="https://drive-thirdparty.googleusercontent.com/64/type/application/vnd.openxmlformats-officedocument.presentationml.presentation"/><a href="https://docs.google.com/presentation/d/1nf6DynyTA-LtkehSz7K1qU0-P2dGweEL/edit?usp=drivesdk&amp;ouid=105755617636471752460&amp;rtpof=true&amp;sd=true">rules 2.pptx</a><br/><a class="bookmark-href" href="https://docs.google.com/presentation/d/1nf6DynyTA-LtkehSz7K1qU0-P2dGweEL/edit?usp=drivesdk&amp;ouid=105755617636471752460&amp;rtpof=true&amp;sd=true">https://docs.google.com/presentation/d/1nf6DynyTA-LtkehSz7K1qU0-P2dGweEL/edit?usp=drivesdk&amp;ouid=105755617636471752460&amp;rtpof=true&amp;sd=true</a></div></figure></div></div><div id="dcb60ecd-9952-4f3e-93b9-3f498bc595be" class="column-list"><div id="9120f815-0150-4be7-9f19-41efcb2a86a9" style="width:50%" class="column"><figure id="13d22477-015e-4870-a889-233fd222207c" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_204332006.MP.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_204332006.MP.jpg"/></a></figure></div><div id="f88f6059-4124-4c94-8460-418270964c3f" style="width:50%" class="column"><figure id="2534c0d9-2b83-4e65-8d52-e337db0d538d" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_204333746.MP.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_204333746.MP.jpg"/></a></figure></div></div><figure id="19f530ee-88c2-4e62-8def-6fd1da7ce235" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_205915455.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_205915455.jpg"/></a></figure><div id="4b6db9bd-515a-4e7e-bc6e-5c0c98716d24" class="column-list"><div id="77ff432a-2707-4fc4-bcec-cda24400f730" style="width:50%" class="column"><figure id="f94924e6-2fb0-4f38-a1c0-28cabe6bda48" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_220827160.MP.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_220827160.MP.jpg"/></a></figure></div><div id="498bc435-3910-46f7-aaed-50598f533dc6" style="width:50%" class="column"><figure id="c7a3cd65-9db2-4ef8-804e-1aed8f857c3a" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_220828501.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_220828501.jpg"/></a></figure></div></div><div id="56ccad16-a02d-400c-95f7-0c9528236c92" class="column-list"><div id="990d2177-f3c3-498b-87e8-9642760e8bca" style="width:50%" class="column"><figure id="0d46e42a-2869-4a81-83f4-a96727e7cb73" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_222346750.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_222346750.jpg"/></a></figure></div><div id="a2ec8e5e-0c63-403d-be07-3961eedfe110" style="width:50%" class="column"><figure id="d781e196-0431-422f-a87e-273cb9fbb34e" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_222937094.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_222937094.jpg"/></a></figure></div></div><figure id="7e1c1228-dcb8-45d3-9efa-7ef5493ac5fc" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_222935452.jpg"><img style="width:4032px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221013_222935452.jpg"/></a></figure><figure id="0a7edff8-b11d-4112-a066-a5db21075dbb" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221023_045032158.jpg"><img style="width:3623px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/PXL_20221023_045032158.jpg"/></a></figure><h1 id="d4fce2ba-a26b-42f8-b56d-c100d68ad1a7" class="">Calculations</h1><p id="b234ec8f-e411-4171-ae85-c15db5bc03c5" class="">Building → +2C<div class="indented"><p id="a10755bc-a1b1-4b98-a3e6-b2705ee6000b" class="">+ Four surrounding spots must be vacant in order to put buildings</p></div></p><p id="f0d1a1c9-5ce0-4cdb-be36-ab614813f936" class="">Farms → +1C</p><p id="1d80f55f-359e-414c-beac-d4aaa823a9d7" class="">Cutting Trees → +3C</p><p id="28fe0812-a246-4e0c-9b40-86a291e13fda" class="">Planting Trees → -1C</p><p id="7ff0089d-87b1-442b-83cf-5b565fb89a12" class="">
+</p><p id="2d809100-fef4-41e5-a752-19e687020ff6" class="">Sea levels →</p><p id="e8b0c52a-5652-4e53-99b5-d41445cde8aa" class="">When players have all C-tokens,<div class="indented"><ol type="a" id="568acee8-ae43-424b-9441-67e9c41cafc3" class="numbered-list" start="1"><li>sea levels rise by one level</li></ol><ol type="a" id="1ebf015d-a52b-4ff4-a4ed-cd5132cacb90" class="numbered-list" start="2"><li>if a sheep is submerged, players get a permanent C-token</li></ol><ol type="a" id="869ade12-a53e-47d6-a6e6-aa108f091b84" class="numbered-list" start="3"><li>return (n-1-[permanent C-tokens]) C-tokens to the box</li></ol></div></p><h1 id="98b2a7b1-8985-4d90-9eff-7729dd420114" class="">Timeline</h1><div id="18b9d696-583e-48f6-a423-efd1c60b43d9" class="column-list"><div id="9e8039ba-ab33-4acb-8d00-a19c0df95261" style="width:81.25%" class="column"><figure id="f3726920-1942-4e76-b60f-3ea20ce5aee6" class="image"><a href="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/Screenshot_2022-10-23_at_18.29.23.png"><img style="width:1288px" src="Interactive%20Prototype%20Build%20f7fd831f43f24113a68530d8e513cb95/Screenshot_2022-10-23_at_18.29.23.png"/></a></figure></div><div id="292d8660-950f-4908-9c2f-67c359829c4e" style="width:18.749999999999993%" class="column"><p id="fe27da17-a572-45db-a00c-b68ece1cb110" class="">
+</p></div></div><p id="05b1bef4-64eb-4621-82d5-3942f7bcc128" class="">
+</p></div></article></body></html>

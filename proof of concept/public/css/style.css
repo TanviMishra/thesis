@@ -1,0 +1,137 @@
+@font-face {
+    font-family: "EikoThin";
+    src: url("./fonts/PPEiko-Thin.otf");
+}
+@font-face {
+    font-family: "EikoM";
+    src: url("./fonts/PPEiko-Medium.otf");
+}
+@font-face {
+    font-family: "MonumentBlack";
+    src: url("./fonts/PPMonumentExtended-Black.otf");
+}
+@font-face {
+    font-family: "MonumentRegular";
+    src: url("./fonts/PPMonumentExtended-Regular.otf");
+}
+:root{
+    --accent: goldenrod;
+    --dark: rgb(24, 24, 24);
+    --light:  rgb(147, 147, 147);
+    --text: rgb(223, 223, 223);
+
+}
+*{
+    /* border: 0.5px solid var(--accent); */
+}
+html, body {
+    font-family: "EikoThin";
+}
+body {
+    background-color: var(--light);
+    margin:0;
+    padding:0;
+    min-width:100vw;
+    min-height:100vh;
+    /* overflow-y: hidden; */
+    /* overflow-x:hidden; */
+}
+.flex{
+    display: flex;
+}
+#starting-section{
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--dark);
+    color: var(--text);
+    padding: 5vh;
+    height: 45vh;
+}
+.text{
+    height: fit-content;
+    width: fit-content;
+}
+.text h3{
+    font-family: "MonumentRegular";
+    font-size: 25px;
+    margin: 20px 0;
+}
+.text p{
+    font-size: 25px;
+    margin: 10px 0;
+}
+.text-left{
+    width:70%;
+}
+.text-right{
+    text-align: right;
+    width:30%;
+}
+.text-right .flex{
+    width: fit-content;
+    float: right;
+}
+/* #start {
+    font-family: "MonumentRegular";
+    background: var(--light);
+    color: var(--dark);
+    width: 100px;
+    height: 40px;
+    position: absolute; 
+    margin: -35px 0 0 40px;
+    padding:0; 
+    line-height: -10px;
+    border-radius: 5px;
+    z-index: 1;
+    border: none;
+    border-top: 3px solid var(--accent);
+} */
+#start {
+    font-family: "MonumentRegular";
+    background: var(--light);
+    color: var(--dark);
+    width: 100px;
+    height: 40px;
+    margin: 40px 0 0  40px;
+    border-radius: 5px;
+    z-index: 1;
+    border: none;
+    border: 3px solid var(--dark);
+}
+#start:hover{
+    color: var(--accent);
+    border: 3px solid var(--accent);
+}
+#grid{
+    height: 100vh;
+    z-index: 6;
+    border-top: 3px solid var(--accent);
+    margin-bottom: 30px;
+}
+#grid-content{
+    background-color: var(--dark);
+    width: 90%;
+    height: 80%;
+    margin: 5% auto;
+    border: 3px solid var(--accent);
+    display: flex;
+    flex-wrap: wrap;
+}
+.boxConst{
+    width: 10%;
+    height:  10%;
+    border:1px solid var(--accent);
+    box-sizing: border-box;
+}
+.vacant{
+    background-color: orange;
+}
+.primaryTree{
+    background-color: darkgreen;
+}
+.secondaryTree{
+    background-color: rgb(138, 195, 52);
+}
+.building{
+    background-color: var(--dark);
+}
